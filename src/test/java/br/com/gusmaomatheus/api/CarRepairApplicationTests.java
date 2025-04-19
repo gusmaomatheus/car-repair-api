@@ -1,4 +1,4 @@
-package br.com.gusmaomatheus.car_repair;
+package br.com.gusmaomatheus.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
