@@ -1,4 +1,4 @@
-package br.com.gusmaomatheus.car_repair;
+package br.com.gusmaomatheus.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
