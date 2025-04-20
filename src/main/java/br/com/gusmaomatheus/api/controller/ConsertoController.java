@@ -45,7 +45,7 @@ public class ConsertoController {
 
     @GetMapping("/resumo")
     public ResponseEntity<List<DadosResumoConserto>> listarResumo() {
-        final List<DadosResumoConserto> consertos = repository.findAll()
+        final List<DadosResumoConserto> consertos = repository.findAllByAtivoTrue()
                 .stream()
                 .map(conserto -> mapper.toDadosResumoConserto(conserto).get()).toList();
 
