@@ -1,4 +1,4 @@
-package br.com.gusmaomatheus.api.model.veiculo;
+package br.com.gusmaomatheus.api.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

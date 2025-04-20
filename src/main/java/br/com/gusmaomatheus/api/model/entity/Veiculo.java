@@ -1,5 +1,6 @@
-package br.com.gusmaomatheus.api.model.veiculo;
+package br.com.gusmaomatheus.api.model.entity;
 
+import br.com.gusmaomatheus.api.model.dto.DadosVeiculo;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

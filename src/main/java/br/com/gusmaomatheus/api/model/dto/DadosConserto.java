@@ -1,6 +1,4 @@
-package br.com.gusmaomatheus.api.model.conserto;
-
-import br.com.gusmaomatheus.api.model.veiculo.DadosVeiculo;
+package br.com.gusmaomatheus.api.model.dto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -16,7 +14,7 @@ public record DadosConserto(
         String dataSaida,
         @NotNull
         @Valid
-        br.com.gusmaomatheus.api.model.mecanico.DadosMecanico dadosMecanico,
+        DadosMecanico dadosMecanico,
         @NotNull
         @Valid
         DadosVeiculo dadosVeiculo

@@ -1,9 +1,10 @@
 package br.com.gusmaomatheus.api.controller;
 
-import br.com.gusmaomatheus.api.model.conserto.Conserto;
-import br.com.gusmaomatheus.api.model.conserto.DadosConserto;
-import br.com.gusmaomatheus.api.model.conserto.DadosResumoConserto;
-import br.com.gusmaomatheus.api.model.veiculo.DadosVeiculo;
+import br.com.gusmaomatheus.api.model.dto.DadosMecanico;
+import br.com.gusmaomatheus.api.model.entity.Conserto;
+import br.com.gusmaomatheus.api.model.dto.DadosConserto;
+import br.com.gusmaomatheus.api.model.dto.DadosResumoConserto;
+import br.com.gusmaomatheus.api.model.dto.DadosVeiculo;
 import br.com.gusmaomatheus.api.repository.ConsertoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -41,7 +42,7 @@ public class ConsertoController {
                 .map(conserto -> new DadosConserto(
                         conserto.getDataEntrada().toString(),
                         conserto.getDataSaida().toString(),
-                        new br.com.gusmaomatheus.api.model.mecanico.DadosMecanico(conserto.getMecanico().getNome(), conserto.getMecanico().getAnosDeExperiencia()),
+                        new DadosMecanico(conserto.getMecanico().getNome(), conserto.getMecanico().getAnosDeExperiencia()),
                         new DadosVeiculo(conserto.getVeiculo().getMarca(), conserto.getVeiculo().getModelo(), conserto.getVeiculo().getCor(), conserto.getVeiculo().getAno())));
 
         return ResponseEntity.status(HttpStatus.OK).body(consertos);
@@ -72,7 +73,7 @@ public class ConsertoController {
                 .map(conserto -> ResponseEntity.status(HttpStatus.OK).body(new DadosConserto(
                         conserto.getDataEntrada().toString(),
                         conserto.getDataSaida().toString(),
-                        new br.com.gusmaomatheus.api.model.mecanico.DadosMecanico(conserto.getMecanico().getNome(), conserto.getMecanico().getAnosDeExperiencia()),
+                        new DadosMecanico(conserto.getMecanico().getNome(), conserto.getMecanico().getAnosDeExperiencia()),
                         new DadosVeiculo(conserto.getVeiculo().getMarca(), conserto.getVeiculo().getModelo(), conserto.getVeiculo().getCor(), conserto.getVeiculo().getAno())
                 )))
                 .orElseGet(() -> ResponseEntity.notFound().build());

@@ -1,5 +1,6 @@
-package br.com.gusmaomatheus.api.model.mecanico;
+package br.com.gusmaomatheus.api.model.entity;
 
+import br.com.gusmaomatheus.api.model.dto.DadosMecanico;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

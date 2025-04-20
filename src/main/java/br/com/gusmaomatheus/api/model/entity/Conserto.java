@@ -1,7 +1,6 @@
-package br.com.gusmaomatheus.api.model.conserto;
+package br.com.gusmaomatheus.api.model.entity;
 
-import br.com.gusmaomatheus.api.model.mecanico.Mecanico;
-import br.com.gusmaomatheus.api.model.veiculo.Veiculo;
+import br.com.gusmaomatheus.api.model.dto.DadosConserto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

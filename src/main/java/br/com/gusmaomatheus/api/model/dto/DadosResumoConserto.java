@@ -1,4 +1,4 @@
-package br.com.gusmaomatheus.api.model.conserto;
+package br.com.gusmaomatheus.api.model.dto;
 
 public record DadosResumoConserto(
   String dataEntrada,
