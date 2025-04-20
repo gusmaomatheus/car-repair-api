@@ -61,6 +61,8 @@ public class ConsertoController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // ? Mudar isso para DeleteMapping? Não estamos de fato deletando do banco. Mas, o usuário que fez a requisição não sabe disso (e nem tem pq saber), para ele foi deletado
+    // oq eh mais certo?
     @PatchMapping("/inativar/{id}")
     @Transactional
     public ResponseEntity<DadosConserto> inativar(@PathVariable Long id) {
@@ -71,7 +73,7 @@ public class ConsertoController {
 
             conserto.inativar();
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
 
         return ResponseEntity.notFound().build();
