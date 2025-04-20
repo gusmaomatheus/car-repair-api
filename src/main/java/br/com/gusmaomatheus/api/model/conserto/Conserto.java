@@ -14,7 +14,7 @@ import java.util.Objects;
 @Entity(name = "Conserto")
 @NoArgsConstructor
 @Getter
-public class Conserto {
+public final class Conserto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

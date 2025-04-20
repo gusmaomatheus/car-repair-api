@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @NoArgsConstructor
 @Getter
-public class Mecanico {
+public final class Mecanico {
     private String nome;
     private Integer anosDeExperiencia;
 

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @NoArgsConstructor
 @Getter
-public class Veiculo {
+public final class Veiculo {
     private String marca;
     private String modelo;
     private String ano;
