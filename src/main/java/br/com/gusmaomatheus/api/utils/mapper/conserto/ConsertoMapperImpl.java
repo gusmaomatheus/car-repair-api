@@ -38,6 +38,7 @@ public final class ConsertoMapperImpl implements ConsertoMapper {
         }
 
         return Optional.of(new DadosResumoConserto(
+                conserto.getId(),
                 conserto.getDataEntrada().toString(),
                 conserto.getDataSaida().toString(),
                 conserto.getMecanico().getNome(),
