@@ -7,7 +7,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 public record MecanicoDTO(
         @NotBlank(message = "O campo 'nome' é obrigatório")
         String nome,
-        @NotNull(message = "O campo 'anos_de_experiencia' é obrigatório")
-        @PositiveOrZero(message = "O campo 'anos_de_experiencia' deve ser igual ou maior do que zero.")
+        @NotNull(message = "O campo 'anosDeExperiencia' é obrigatório")
+        @PositiveOrZero(message = "O campo 'anosDeExperiencia' deve ser igual ou maior do que zero.")
         Integer anosDeExperiencia
 ) {}
