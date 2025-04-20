@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("conserto")
@@ -62,5 +63,19 @@ public class ConsertoController {
                 )).toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(consertos);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ConsertoDTO> buscarPorId(@PathVariable Long id) {
+        final Optional<Conserto> consertoOpt = repository.findById(id);
+
+        return consertoOpt
+                .map(conserto -> ResponseEntity.status(HttpStatus.OK).body(new ConsertoDTO(
+                        conserto.getDataEntrada().toString(),
+                        conserto.getDataSaida().toString(),
+                        new MecanicoDTO(conserto.getMecanico().getNome(), conserto.getMecanico().getAnosDeExperiencia()),
+                        new VeiculoDTO(conserto.getVeiculo().getMarca(), conserto.getVeiculo().getModelo(), conserto.getVeiculo().getCor(), conserto.getVeiculo().getAno())
+                )))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
