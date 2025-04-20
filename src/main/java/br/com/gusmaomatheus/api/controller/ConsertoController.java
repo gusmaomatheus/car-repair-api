@@ -4,6 +4,7 @@ import br.com.gusmaomatheus.api.model.conserto.Conserto;
 import br.com.gusmaomatheus.api.model.conserto.ConsertoDTO;
 import br.com.gusmaomatheus.api.repository.ConsertoRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class ConsertoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ConsertoDTO> cadastrar(@RequestBody ConsertoDTO dados) {
+    public ResponseEntity<ConsertoDTO> cadastrar(@RequestBody @Valid ConsertoDTO dados) {
         repository.save(new Conserto(dados));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(dados);
