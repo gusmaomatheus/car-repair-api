@@ -11,10 +11,11 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,10 +30,15 @@ public class ConsertoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<DadosConserto> cadastrar(@RequestBody @Valid DadosConserto dados) {
-        repository.save(new Conserto(dados));
+    public ResponseEntity<DadosConserto> cadastrar(@RequestBody @Valid DadosConserto dados,
+                                                   UriComponentsBuilder uriBuilder) {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(dados);
+        final Conserto conserto = new Conserto(dados);
+        final URI uri = uriBuilder.path("/conserto/{id}").buildAndExpand(conserto.getId()).toUri();
+
+        repository.save(conserto);
+
+        return ResponseEntity.created(uri).body(mapper.toDadosConserto(conserto).get());
     }
 
     @GetMapping
@@ -40,7 +46,7 @@ public class ConsertoController {
         final Page<DadosConserto> consertos = repository.findAll(pageable)
                 .map(conserto -> mapper.toDadosConserto(conserto).get());
 
-        return ResponseEntity.status(HttpStatus.OK).body(consertos);
+        return ResponseEntity.ok(consertos);
     }
 
     @GetMapping("/resumo")
@@ -49,7 +55,7 @@ public class ConsertoController {
                 .stream()
                 .map(conserto -> mapper.toDadosResumoConserto(conserto).get()).toList();
 
-        return ResponseEntity.status(HttpStatus.OK).body(consertos);
+        return ResponseEntity.ok(consertos);
     }
 
     @GetMapping("/{id}")
@@ -73,7 +79,7 @@ public class ConsertoController {
 
             conserto.inativar();
 
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            return ResponseEntity.noContent().build();
         }
 
         return ResponseEntity.notFound().build();
