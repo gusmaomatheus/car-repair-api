@@ -23,6 +23,7 @@ public final class Conserto {
     private Mecanico mecanico;
     @Embedded
     private Veiculo veiculo;
+    private boolean ativo;
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -31,6 +32,7 @@ public final class Conserto {
         this.dataSaida = LocalDate.parse(dados.dataSaida(), formatter);
         this.mecanico = new Mecanico(dados.dadosMecanico());
         this.veiculo = new Veiculo(dados.dadosVeiculo());
+        this.ativo = true;
     }
 
     @Override
