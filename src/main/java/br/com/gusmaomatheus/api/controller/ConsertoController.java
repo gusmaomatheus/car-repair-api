@@ -67,9 +67,7 @@ public class ConsertoController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // ? Mudar isso para DeleteMapping? Não estamos de fato deletando do banco. Mas, o usuário que fez a requisição não sabe disso (e nem tem pq saber), para ele foi deletado
-    // oq eh mais certo?
-    @PatchMapping("/inativar/{id}")
+    @DeleteMapping("/inativar/{id}")
     @Transactional
     public ResponseEntity<DadosConserto> inativar(@PathVariable Long id) {
         final Optional<Conserto> consertoOpt = repository.findById(id);
