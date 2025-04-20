@@ -25,7 +25,7 @@ public class ConsertoController {
     @Autowired
     private ConsertoRepository repository;
 
-    private ConsertoMapper mapper = new ConsertoMapperImpl();
+    private final ConsertoMapper mapper = new ConsertoMapperImpl();
 
     @PostMapping
     @Transactional
