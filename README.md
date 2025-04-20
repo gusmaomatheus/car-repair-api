@@ -56,35 +56,44 @@ ___
 
 ## 📫 Endpoints Principais
 
-A API saegue os princípios REST e expõe os seguintes endpoints:
+A API segue os princípios REST e expõe os seguintes endpoints:
 
 - `GET api/conserto` — Lista todos os consertos de maneira detalhada.
 - `GET api/conserto/resumo` — Lista todos os consertos de maneira resumida (apenas os consertos ativos).
 - `GET api/conserto/{id}` — Detalha um conserto específico.
 - `POST api/conserto` — Cadastra um novo conserto.
-- `PUT api/conserto/{id}` — Atualiza as informações de um conserto.
-- `DELETE /api/conserto/inativar/{id}` — Inativa um conserto cadastrado.
+- `PATCH api/conserto/{id}` — Atualiza algumas das informações de um conserto.
+- `DELETE api/conserto/inativar/{id}` — Inativa um conserto cadastrado.
 
 
-#### 📄 JSON exemplo para realizar o cadastro de um novo conserto:
+#### 📄 JSON's de exemplo para as requisições:
 
+- `POST api/conserto`
   ```json
   {
-    "dataEntrada": "19/04/2025", // obrigatório
-    "dataSaida": "20/04/2025", // obrigatório
-    "dadosMecanico": {
-      "nome": "Mecanico 1", // obrigatório
-      "anosDeExperiencia": 5
-    },
-    "dadosVeiculo": {
-      "marca": "bmw", // obrigatório
-      "modelo": "320i", // obrigatório
-      "ano": "2025", // obrigatório
-      "cor": "Vermelho"
-    }
+      "dataEntrada": "19/04/2025", // obrigatório
+      "dataSaida": "20/04/2025", // obrigatório
+      "dadosMecanico": {
+        "nome": "Mecanico 1", // obrigatório
+        "anosDeExperiencia": 5
+      },
+      "dadosVeiculo": {
+        "marca": "bmw", // obrigatório
+        "modelo": "320i", // obrigatório
+        "ano": "2025", // obrigatório
+        "cor": "Vermelho"
+      }
   }
   ```
-  
+
+- `PATCH api/conserto/{id}`
+  ```json
+   {
+      "dataSaida": "20/04/2025",
+      "nomeMecanico": "Mecanico",
+      "anosDeExperiencia": 0
+   }
+  ```  
 ___
 
 ## 📝 Licença
