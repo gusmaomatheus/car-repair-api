@@ -11,7 +11,7 @@ public final class Mecanico {
     private String nome;
     private Integer anosDeExperiencia;
 
-    public Mecanico(MecanicoDTO dados) {
+    public Mecanico(DadosMecanico dados) {
         this.nome = dados.nome();
         this.anosDeExperiencia = dados.anosDeExperiencia();
     }

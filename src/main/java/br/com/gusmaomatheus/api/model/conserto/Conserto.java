@@ -27,7 +27,7 @@ public final class Conserto {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public Conserto(ConsertoDTO dados) {
+    public Conserto(DadosConserto dados) {
         this.dataEntrada = LocalDate.parse(dados.dataEntrada(), formatter);
         this.dataSaida = LocalDate.parse(dados.dataSaida(), formatter);
         this.mecanico = new Mecanico(dados.dadosMecanico());

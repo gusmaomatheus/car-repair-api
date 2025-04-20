@@ -1,10 +1,9 @@
 package br.com.gusmaomatheus.api.controller;
 
 import br.com.gusmaomatheus.api.model.conserto.Conserto;
-import br.com.gusmaomatheus.api.model.conserto.ConsertoDTO;
+import br.com.gusmaomatheus.api.model.conserto.DadosConserto;
 import br.com.gusmaomatheus.api.model.conserto.DadosResumoConserto;
-import br.com.gusmaomatheus.api.model.mecanico.MecanicoDTO;
-import br.com.gusmaomatheus.api.model.veiculo.VeiculoDTO;
+import br.com.gusmaomatheus.api.model.veiculo.DadosVeiculo;
 import br.com.gusmaomatheus.api.repository.ConsertoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -27,23 +26,23 @@ public class ConsertoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ConsertoDTO> cadastrar(@RequestBody @Valid ConsertoDTO dados) {
+    public ResponseEntity<DadosConserto> cadastrar(@RequestBody @Valid DadosConserto dados) {
         repository.save(new Conserto(dados));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(dados);
     }
 
     @GetMapping
-    public ResponseEntity<Page<ConsertoDTO>> listar(Pageable pageable) {
+    public ResponseEntity<Page<DadosConserto>> listar(Pageable pageable) {
 
         // TODO: melhorar esse map...
         // ? talvez adicionar alguma lib para mapear a entidade para o dto (modelmapper, mapstruct, outra...)
-        final Page<ConsertoDTO> consertos = repository.findAll(pageable)
-                .map(conserto -> new ConsertoDTO(
+        final Page<DadosConserto> consertos = repository.findAll(pageable)
+                .map(conserto -> new DadosConserto(
                         conserto.getDataEntrada().toString(),
                         conserto.getDataSaida().toString(),
-                        new MecanicoDTO(conserto.getMecanico().getNome(), conserto.getMecanico().getAnosDeExperiencia()),
-                        new VeiculoDTO(conserto.getVeiculo().getMarca(), conserto.getVeiculo().getModelo(), conserto.getVeiculo().getCor(), conserto.getVeiculo().getAno())));
+                        new br.com.gusmaomatheus.api.model.mecanico.DadosMecanico(conserto.getMecanico().getNome(), conserto.getMecanico().getAnosDeExperiencia()),
+                        new DadosVeiculo(conserto.getVeiculo().getMarca(), conserto.getVeiculo().getModelo(), conserto.getVeiculo().getCor(), conserto.getVeiculo().getAno())));
 
         return ResponseEntity.status(HttpStatus.OK).body(consertos);
     }
@@ -66,15 +65,15 @@ public class ConsertoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ConsertoDTO> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<DadosConserto> buscarPorId(@PathVariable Long id) {
         final Optional<Conserto> consertoOpt = repository.findById(id);
 
         return consertoOpt
-                .map(conserto -> ResponseEntity.status(HttpStatus.OK).body(new ConsertoDTO(
+                .map(conserto -> ResponseEntity.status(HttpStatus.OK).body(new DadosConserto(
                         conserto.getDataEntrada().toString(),
                         conserto.getDataSaida().toString(),
-                        new MecanicoDTO(conserto.getMecanico().getNome(), conserto.getMecanico().getAnosDeExperiencia()),
-                        new VeiculoDTO(conserto.getVeiculo().getMarca(), conserto.getVeiculo().getModelo(), conserto.getVeiculo().getCor(), conserto.getVeiculo().getAno())
+                        new br.com.gusmaomatheus.api.model.mecanico.DadosMecanico(conserto.getMecanico().getNome(), conserto.getMecanico().getAnosDeExperiencia()),
+                        new DadosVeiculo(conserto.getVeiculo().getMarca(), conserto.getVeiculo().getModelo(), conserto.getVeiculo().getCor(), conserto.getVeiculo().getAno())
                 )))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

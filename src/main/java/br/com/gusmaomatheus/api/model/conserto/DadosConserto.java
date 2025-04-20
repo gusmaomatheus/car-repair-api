@@ -1,14 +1,13 @@
 package br.com.gusmaomatheus.api.model.conserto;
 
-import br.com.gusmaomatheus.api.model.mecanico.MecanicoDTO;
-import br.com.gusmaomatheus.api.model.veiculo.VeiculoDTO;
+import br.com.gusmaomatheus.api.model.veiculo.DadosVeiculo;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-public record ConsertoDTO(
+public record DadosConserto(
         @NotBlank(message = "O campo 'dataEntrada' é obrigatório.")
         @Pattern(regexp = "^\\d{2}/\\d{2}/\\d{4}$", message = "O campo 'data_entrada' deve seguir o padrão: dd/mm/yyyy (Ex.: 20/04/2025)")
         String dataEntrada,
@@ -17,8 +16,8 @@ public record ConsertoDTO(
         String dataSaida,
         @NotNull
         @Valid
-        MecanicoDTO dadosMecanico,
+        br.com.gusmaomatheus.api.model.mecanico.DadosMecanico dadosMecanico,
         @NotNull
         @Valid
-        VeiculoDTO dadosVeiculo
+        DadosVeiculo dadosVeiculo
 ) {}

@@ -3,7 +3,7 @@ package br.com.gusmaomatheus.api.model.veiculo;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
-public record VeiculoDTO(
+public record DadosVeiculo(
         @NotBlank(message = "O campo 'marca' é obrigatório.")
         String marca,
         @NotBlank(message = "O campo 'modelo' é obrigatório.")

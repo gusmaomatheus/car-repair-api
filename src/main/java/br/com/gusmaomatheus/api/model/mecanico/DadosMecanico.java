@@ -2,7 +2,7 @@ package br.com.gusmaomatheus.api.model.mecanico;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record MecanicoDTO(
+public record DadosMecanico(
         @NotBlank(message = "O campo 'nome' é obrigatório")
         String nome,
         Integer anosDeExperiencia
