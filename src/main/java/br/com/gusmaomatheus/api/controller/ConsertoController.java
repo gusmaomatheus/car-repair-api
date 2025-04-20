@@ -43,7 +43,6 @@ public class ConsertoController {
         return ResponseEntity.status(HttpStatus.OK).body(consertos);
     }
 
-    // TODO: pensar em algum nome melhor para o endpoint (existe?)
     @GetMapping("/resumo")
     public ResponseEntity<List<DadosResumoConserto>> listarResumo() {
         final List<DadosResumoConserto> consertos = repository.findAll()
