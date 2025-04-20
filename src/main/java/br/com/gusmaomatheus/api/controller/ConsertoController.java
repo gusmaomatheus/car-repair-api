@@ -61,4 +61,21 @@ public class ConsertoController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PatchMapping("/inativar/{id}")
+    @Transactional
+    public ResponseEntity<DadosConserto> inativar(@PathVariable Long id) {
+        final Optional<Conserto> consertoOpt = repository.findById(id);
+
+        if (consertoOpt.isPresent()) {
+            final Conserto conserto = consertoOpt.get();
+
+            conserto.inativar();
+
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.notFound().build();
+
+    }
+
 }

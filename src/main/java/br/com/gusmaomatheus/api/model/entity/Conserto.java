@@ -46,4 +46,8 @@ public final class Conserto {
     public int hashCode() {
         return Objects.hashCode(getId());
     }
+
+    public void inativar() {
+        this.ativo = false;
+    }
 }
