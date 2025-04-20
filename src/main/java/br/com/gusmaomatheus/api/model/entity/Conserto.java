@@ -1,5 +1,6 @@
 package br.com.gusmaomatheus.api.model.entity;
 
+import br.com.gusmaomatheus.api.model.dto.DadosAtualizacaoConserto;
 import br.com.gusmaomatheus.api.model.dto.DadosConserto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -35,6 +36,20 @@ public final class Conserto {
         this.ativo = true;
     }
 
+    public void inativar() {
+        this.ativo = false;
+    }
+
+    public void atualizarInformacoes(DadosAtualizacaoConserto dados) {
+        if (Objects.nonNull(dados.dataSaida())) {
+            this.dataSaida = LocalDate.parse(dados.dataSaida(), formatter);
+        }
+
+        if (Objects.nonNull(dados.nomeMecanico()) || Objects.nonNull(dados.anosDeExperiencia())) {
+            this.mecanico.atualizar(dados);
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -47,7 +62,4 @@ public final class Conserto {
         return Objects.hashCode(getId());
     }
 
-    public void inativar() {
-        this.ativo = false;
-    }
 }

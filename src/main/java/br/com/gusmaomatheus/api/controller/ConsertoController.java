@@ -1,5 +1,6 @@
 package br.com.gusmaomatheus.api.controller;
 
+import br.com.gusmaomatheus.api.model.dto.DadosAtualizacaoConserto;
 import br.com.gusmaomatheus.api.model.dto.DadosConserto;
 import br.com.gusmaomatheus.api.model.dto.DadosResumoConserto;
 import br.com.gusmaomatheus.api.model.entity.Conserto;
@@ -84,4 +85,21 @@ public class ConsertoController {
 
     }
 
+    // Estamos atualizando apenas parte do objeto, logo é um PATCH e não PUT.
+    @PatchMapping("/{id}")
+    @Transactional
+    public ResponseEntity<DadosConserto> atualizarParcialmente(@RequestBody @Valid DadosAtualizacaoConserto dados,
+                                                               @PathVariable Long id) {
+        final Optional<Conserto> consertoOpt = repository.findById(id);
+
+        if (consertoOpt.isPresent()) {
+            final Conserto conserto = consertoOpt.get();
+
+            conserto.atualizarInformacoes(dados);
+
+            return ResponseEntity.ok(mapper.toDadosConserto(conserto).get());
+        }
+
+        return ResponseEntity.notFound().build();
+    }
 }
