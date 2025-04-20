@@ -8,6 +8,7 @@ public record VeiculoDTO(
         String marca,
         @NotBlank(message = "O campo 'modelo' é obrigatório.")
         String modelo,
+        String cor,
         @NotBlank(message = "O campo 'ano' é obrigatório.")
         @Pattern(regexp = "^\\d{4}$")
         String ano) {}
