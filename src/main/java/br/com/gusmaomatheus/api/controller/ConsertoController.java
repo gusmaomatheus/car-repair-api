@@ -2,6 +2,7 @@ package br.com.gusmaomatheus.api.controller;
 
 import br.com.gusmaomatheus.api.model.conserto.Conserto;
 import br.com.gusmaomatheus.api.model.conserto.ConsertoDTO;
+import br.com.gusmaomatheus.api.model.conserto.DadosResumoConserto;
 import br.com.gusmaomatheus.api.model.mecanico.MecanicoDTO;
 import br.com.gusmaomatheus.api.model.veiculo.VeiculoDTO;
 import br.com.gusmaomatheus.api.repository.ConsertoRepository;
@@ -42,6 +43,23 @@ public class ConsertoController {
                         new MecanicoDTO(conserto.getMecanico().getNome(), conserto.getMecanico().getAnosDeExperiencia()),
                         new VeiculoDTO(conserto.getVeiculo().getMarca(), conserto.getVeiculo().getModelo(), conserto.getVeiculo().getCor(), conserto.getVeiculo().getAno())))
                 .toList();
+
+        return ResponseEntity.status(HttpStatus.OK).body(consertos);
+    }
+
+    // TODO: pensar em algum nome melhor para o endpoint (existe?)
+    @GetMapping("/resumo")
+    public ResponseEntity<List<DadosResumoConserto>> listarResumo() {
+        // TODO: não fazer a conversão desse jeito bla bla bla
+        final List<DadosResumoConserto> consertos = repository.findAll()
+                .stream()
+                .map(conserto -> new DadosResumoConserto(
+                        conserto.getDataEntrada().toString(),
+                        conserto.getDataSaida().toString(),
+                        conserto.getMecanico().getNome(),
+                        conserto.getVeiculo().getMarca(),
+                        conserto.getVeiculo().getModelo()
+                )).toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(consertos);
     }
