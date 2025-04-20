@@ -40,7 +40,7 @@ public class ConsertoController {
                         conserto.getDataEntrada().toString(),
                         conserto.getDataSaida().toString(),
                         new MecanicoDTO(conserto.getMecanico().getNome(), conserto.getMecanico().getAnosDeExperiencia()),
-                        new VeiculoDTO(conserto.getVeiculo().getMarca(), conserto.getVeiculo().getModelo(), conserto.getVeiculo().getAno())))
+                        new VeiculoDTO(conserto.getVeiculo().getMarca(), conserto.getVeiculo().getModelo(), conserto.getVeiculo().getCor(), conserto.getVeiculo().getAno())))
                 .toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(consertos);
