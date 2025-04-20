@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS mecanicos;
+DROP TABLE IF EXISTS veiculos;
