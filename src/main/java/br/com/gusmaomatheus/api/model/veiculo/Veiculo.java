@@ -1,19 +1,13 @@
 package br.com.gusmaomatheus.api.model.veiculo;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Objects;
-
-@Table(name = "veiculos")
-@Entity(name = "Veiculo")
+@Embeddable
 @NoArgsConstructor
 @Getter
 public class Veiculo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String marca;
     private String modelo;
     private String ano;
@@ -22,17 +16,5 @@ public class Veiculo {
         this.marca = dados.marca();
         this.modelo = dados.modelo();
         this.ano = dados.ano();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Veiculo veiculo = (Veiculo) o;
-        return Objects.equals(getId(), veiculo.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
     }
 }
