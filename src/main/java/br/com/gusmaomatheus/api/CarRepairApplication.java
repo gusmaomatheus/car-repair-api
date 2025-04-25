@@ -8,6 +8,11 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 @EnableSpringDataWebSupport(pageSerializationMode = EnableSpringDataWebSupport.PageSerializationMode.VIA_DTO)
 public class CarRepairApplication {
 
+	/*
+	* Alunos:
+	* Matheus Gusmão - SC3039951
+	* Murilo Silva - SC3038467
+	*/
 	public static void main(String[] args) {
 		SpringApplication.run(CarRepairApplication.class, args);
 	}
