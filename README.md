@@ -9,7 +9,7 @@ Este é um projeto de **API RESTful** desenvolvido em **Java** com **Spring**, q
 - **Spring JPA**
 - **Spring Validation**
 - **Flyway**
-- **H2 Database (em memória)**
+- **H2 Database (em arquivo)**
 - **Maven**
 
 ___
@@ -31,6 +31,8 @@ ___
 ___
 
 ## 🛠️ Como Executar
+
+Para executar o projeto é necessário ter [java 21](https://www.oracle.com/br/java/technologies/downloads/#java21) e [maven](https://maven.apache.org/download.cgi) instalados.
 
 1. Clone o repositório:
    ```sh
