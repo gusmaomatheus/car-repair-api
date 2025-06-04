@@ -7,6 +7,7 @@ import br.com.gusmaomatheus.api.model.entity.Conserto;
 import br.com.gusmaomatheus.api.repository.ConsertoRepository;
 import br.com.gusmaomatheus.api.utils.mapper.conserto.ConsertoMapper;
 import br.com.gusmaomatheus.api.utils.mapper.conserto.ConsertoMapperImpl;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class ConsertoController {
 
         repository.save(conserto);
 
-        return ResponseEntity.created(uri).body(mapper.toDadosConserto(conserto).get());
+        return ResponseEntity.created(uri).body(mapper.toDadosConserto(conserto).orElse(null));
     }
 
     @GetMapping
@@ -63,9 +64,13 @@ public class ConsertoController {
     public ResponseEntity<DadosConserto> buscarPorId(@PathVariable Long id) {
         final Optional<Conserto> consertoOpt = repository.findById(id);
 
-        return consertoOpt
-                .map(conserto -> ResponseEntity.ok(mapper.toDadosConserto(conserto).get()))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        if (consertoOpt.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+
+        final Conserto conserto = consertoOpt.get();
+
+        return ResponseEntity.ok().body(mapper.toDadosConserto(conserto).get());
     }
 
     @DeleteMapping("/inativar/{id}")
@@ -73,33 +78,29 @@ public class ConsertoController {
     public ResponseEntity<DadosConserto> inativar(@PathVariable Long id) {
         final Optional<Conserto> consertoOpt = repository.findById(id);
 
-        if (consertoOpt.isPresent()) {
-            final Conserto conserto = consertoOpt.get();
-
-            conserto.inativar();
-
-            return ResponseEntity.noContent().build();
+        if (consertoOpt.isEmpty()) {
+            throw new EntityNotFoundException();
         }
 
-        return ResponseEntity.notFound().build();
+        final Conserto conserto = consertoOpt.get();
+        conserto.inativar();
 
+        return ResponseEntity.noContent().build();
     }
 
-    // Estamos atualizando apenas parte do objeto, logo é um PATCH e não PUT.
     @PatchMapping("/{id}")
     @Transactional
     public ResponseEntity<DadosConserto> atualizarParcialmente(@RequestBody @Valid DadosAtualizacaoConserto dados,
                                                                @PathVariable Long id) {
         final Optional<Conserto> consertoOpt = repository.findById(id);
 
-        if (consertoOpt.isPresent()) {
-            final Conserto conserto = consertoOpt.get();
-
-            conserto.atualizarInformacoes(dados);
-
-            return ResponseEntity.ok(mapper.toDadosConserto(conserto).get());
+        if (consertoOpt.isEmpty()) {
+            throw new EntityNotFoundException();
         }
 
-        return ResponseEntity.notFound().build();
+        final Conserto conserto = consertoOpt.get();
+        conserto.atualizarInformacoes(dados);
+
+        return ResponseEntity.ok(mapper.toDadosConserto(conserto).get());
     }
 }
