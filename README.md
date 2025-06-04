@@ -8,6 +8,8 @@ Este é um projeto de **API RESTful** desenvolvido em **Java** com **Spring**, q
 - **Spring Web**
 - **Spring JPA**
 - **Spring Validation**
+- **Spring Security**
+- **JWT Auth**
 - **Flyway**
 - **H2 Database (em arquivo)**
 - **Maven**
