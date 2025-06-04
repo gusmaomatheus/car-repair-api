@@ -20,4 +20,13 @@ public final class HandlerException extends ResponseEntityExceptionHandler {
                 "Objeto não encontrado no banco de dados!",
                 LocalDateTime.now()));
     }
+
+    @ExceptionHandler(TokenInvalidoException.class)
+    private ResponseEntity<ExceptionResponse> handleTokenInvalido(TokenInvalidoException exception) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ExceptionResponse(
+                403,
+                exception.getMessage(),
+                LocalDateTime.now()
+        ));
+    }
 }

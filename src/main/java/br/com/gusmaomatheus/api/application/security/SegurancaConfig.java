@@ -11,14 +11,27 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SegurancaConfig {
+    private final SegurancaFiltro filtro;
+
+    public SegurancaConfig(SegurancaFiltro filtro) {
+        this.filtro = filtro;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(request -> {
+                    request.requestMatchers(antMatcher("/api/auth")).permitAll();
+                    request.anyRequest().authenticated();
+                })
+                .addFilterBefore(filtro, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
