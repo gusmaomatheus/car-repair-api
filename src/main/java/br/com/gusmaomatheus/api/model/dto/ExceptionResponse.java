@@ -1,4 +1,4 @@
-package br.com.gusmaomatheus.api.application.exception;
+package br.com.gusmaomatheus.api.model.dto;
 
 import java.time.LocalDateTime;
 

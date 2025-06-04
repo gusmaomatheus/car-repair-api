@@ -1,13 +1,18 @@
 package br.com.gusmaomatheus.api.application.exception;
 
+import br.com.gusmaomatheus.api.model.dto.BadRequestResponse;
+import br.com.gusmaomatheus.api.model.dto.ExceptionResponse;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestControllerAdvice
 public final class HandlerException extends ResponseEntityExceptionHandler {
@@ -18,5 +23,14 @@ public final class HandlerException extends ResponseEntityExceptionHandler {
                 404,
                 "Objeto não encontrado no banco de dados!",
                 LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    private ResponseEntity<List<BadRequestResponse>> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
+        List<FieldError> erros = exception.getFieldErrors();
+
+        List<BadRequestResponse> listaErros = erros.stream().map(BadRequestResponse::new).toList();
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(listaErros);
     }
 }
