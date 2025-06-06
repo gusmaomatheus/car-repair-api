@@ -49,19 +49,22 @@ Para executar o projeto é necessário ter [java 21](https://www.oracle.com/br/j
    ```
 ___
 
-## 🔍 Acessando o Banco de Dados
+## 📄 Acessando a aplicação:
 
-O banco de dados H2 está configurado em memória. Para visualizá-lo:
-
-  1. Acesse [localhost](http://localhost:8080/api/h2-console) (com o programa rodando);
-  2. Faça login utilizando as credenciais no arquivo `application.properties`.
-     
-___
+- Utilizar o seguinte corpo na requisição `POST api/auth`:
+```
+{
+  // Login padrão, utilizar ele. 
+  "login": "usuario",
+  "senha": "senha"
+}
+```
 
 ## 📫 Endpoints Principais
 
 A API segue os princípios REST e expõe os seguintes endpoints:
 
+- `POST api/auth` — Login (TODOS os endpoints abaixo necessitam que o usuário esteja logado).
 - `GET api/conserto` — Lista todos os consertos de maneira detalhada.
 - `GET api/conserto/resumo` — Lista todos os consertos de maneira resumida (apenas os consertos ativos).
 - `GET api/conserto/{id}` — Detalha um conserto específico.
